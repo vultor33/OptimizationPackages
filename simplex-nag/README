@@ -1,0 +1,38 @@
+
+initialPoint.txt
+[
+N - numero de variaveis
+x1
+x2
+x3
+x3
+...
+]
+
+gera: 'point.txt'  [formato do 'initialPoint.txt']
+
+executa:  ./getFitness.x
+
+le em: fitness.txt
+
+
+
+restart.simp  -> todos os fitness e pontos correspondentes
+[
+fit1
+x1
+x2
+x3
+...
+fit2
+x1
+x2
+x3
+...
+]
+
+
+para pegar o melhor tem que compilar e executar o 'get-best-point.for'
+
+
+

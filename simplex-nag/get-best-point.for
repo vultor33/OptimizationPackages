@@ -5,7 +5,7 @@
         LOGICAL           RESTART_EXIST
         
         ! Read input
-        OPEN (UNIT=13, STATUS='OLD', FILE='point.txt')
+        OPEN (UNIT=13, STATUS='OLD', FILE='initialPoint.txt')
         READ(13,*) N
         CLOSE(13)
 
@@ -16,7 +16,6 @@
         
         OPEN(UNIT=14, STATUS='OLD', FILE='restart.simp')
         READ(14,*,IOSTAT=IOS) FTEMP
-        write(*,*) 'estou aqui', IOS
         DO WHILE (IOS .EQ. 0)
            IF( FTEMP .LT. FX ) THEN
                FX = FTEMP
@@ -32,6 +31,7 @@
         ENDDO
         CLOSE(14)
 
+        call system("rm bestpoint.txt")
         OPEN(UNIT=15, STATUS='UNKNOWN', FILE='bestpoint.txt')
         write(15,*) FX
         write(15,*)

@@ -5,7 +5,7 @@
         LOGICAL           RESTART_EXIST
         
         ! Read input
-        OPEN (UNIT=13, STATUS='OLD', FILE='point.txt')
+        OPEN (UNIT=13, STATUS='OLD', FILE='initialPoint.txt')
         READ(13,*) N
         ALLOCATE(X(1:N))
         DO I=1,N
