@@ -31,6 +31,21 @@
     # of constraints = 2
     */
 
+
+#ifdef test1
+void test_problem (double *x, double *b, int **gene, double *obj, double *g)
+{
+    int i;
+    obj[0] = 0.0;
+    for (i=0; i<nreal; i++)
+    {
+        obj[0] += x[i]*x[i];
+    }
+    return;
+}
+#endif
+
+/*  fredmudar - test1 original
 #ifdef test1
 void test_problem (double *x, double *b, int **gene, double *obj, double *g)
 {
@@ -40,6 +55,9 @@ void test_problem (double *x, double *b, int **gene, double *obj, double *g)
     return;
 }
 #endif
+*/
+
+
 
 /*  Test problem test2
     # of real variables = 13
