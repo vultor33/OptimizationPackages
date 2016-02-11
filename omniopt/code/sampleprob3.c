@@ -36,11 +36,26 @@
 void test_problem (double *x, double *b, int **gene, double *obj, double *g)
 {
     int i;
-    obj[0] = 0.0;
+    FILE *fPoint;
+    FILE *fFit;
+    double auxFit;
+
+    remove("point.txt");
+    fPoint = fopen("point.txt","w");
+    fprintf(fPoint,"%d \n",nreal);
     for (i=0; i<nreal; i++)
     {
-        obj[0] += x[i]*x[i];
+      fprintf(fPoint,"%20.16f  \n",x[i]);
     }
+    fclose(fPoint);
+
+    system("./getFitness.x");
+
+    fFit = fopen("fitness.txt","r");
+    fscanf(fFit,"%lf",&auxFit);
+    fclose(fFit);
+    obj[0] = auxFit;
+
     return;
 }
 #endif
