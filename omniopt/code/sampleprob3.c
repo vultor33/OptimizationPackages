@@ -6,6 +6,11 @@
 # include <stdlib.h>
 # include <math.h>
 
+/* added by Vultor (19/02/2016) */
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h> 
+
 # include "global.h"
 # include "rand.h"
 # include "pdef.h"
@@ -33,12 +38,60 @@
 
 
 #ifdef test1
+
+int restartFlag = 0;
+double * restartGlobal = NULL;
+int restartIndex;
+int restartPoint;
+
 void test_problem (double *x, double *b, int **gene, double *obj, double *g)
 {
+    double auxDummy;
+    FILE *fRestart;
+    FILE *fRestart2;
+    int iArray = 0;
+    struct stat buffer;   
+
     int i;
     FILE *fPoint;
     FILE *fFit;
+    FILE *fAddRestart;
     double auxFit;
+
+    if(restartFlag == 0)
+    {
+      if(stat ("restart.fit", &buffer) == 0)
+      {
+        fRestart = fopen("restart.fit","r");
+        while(fscanf(fRestart,"%lf",&auxDummy) != EOF)
+        {
+          printf("%f \n",auxDummy);
+          restartIndex++;
+        }
+        fclose(fRestart);
+        restartGlobal = malloc(restartIndex * sizeof(*restartGlobal));
+        fRestart2 = fopen("restart.fit","rb");
+        while(fscanf(fRestart2,"%lf",&auxDummy) != EOF)
+        {
+          restartGlobal[iArray] = auxDummy;
+          iArray++;
+        }
+        fclose(fRestart2);
+        restartFlag = 1;
+        restartPoint = 0;
+      }
+      else
+      {
+        restartFlag = 2;
+      }
+    }
+
+    if( (restartFlag == 1) && (restartPoint < restartIndex))
+    {
+      obj[0] = restartGlobal[restartPoint];
+      restartPoint++;
+      return;
+    }
 
     remove("point.txt");
     fPoint = fopen("point.txt","w");
@@ -55,6 +108,10 @@ void test_problem (double *x, double *b, int **gene, double *obj, double *g)
     fscanf(fFit,"%lf",&auxFit);
     fclose(fFit);
     obj[0] = auxFit;
+
+    fAddRestart = fopen("restart.fit","a");
+    fprintf(fAddRestart,"%20.16f   \n",auxFit);
+    fclose(fAddRestart);
 
     return;
 }

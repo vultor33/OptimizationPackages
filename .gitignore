@@ -3,4 +3,7 @@
 *.o
 fitness.txt
 *.swp
+omniopt/teste/point.txt
+restart.fit
+
 
