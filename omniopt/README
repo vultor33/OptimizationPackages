@@ -5,6 +5,24 @@ prob1.in:  input do ga - observar a configuracao correta desse.
 
 ./omniopt.x [0.1234 - semente]  < [prob1.in - input]
 
+--> RESTART
+
+verifica se existe o arquivo: 
+
+restart.fit
+[
+fit1
+fit2
+fit3
+...
+]
+
+se existir ele le tudo, armazena em uma variavel global
+e entrega os pontos conforme esses vao aparecendo
+
+quando os pontos acabarem ou o restart.fit nao for
+encontrado:
+
 gera point.txt
 [
 n - numero de variaveis
@@ -22,5 +40,6 @@ le fitness.txt
 y - valor da funcao resposta
 ]
 
-
+no final ele cria o restart.fit e escreve nesse
+cada ponto no formato que se deseja.
 
