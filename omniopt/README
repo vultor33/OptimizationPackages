@@ -17,6 +17,9 @@ fit3
 ...
 ]
 
+!!! cuidado - se houverem erros no restart.fit acontecera um loop infinito
+		    - conferir se o final do arquivo esta em ordem.
+
 se existir ele le tudo, armazena em uma variavel global
 e entrega os pontos conforme esses vao aparecendo
 

@@ -65,7 +65,6 @@ void test_problem (double *x, double *b, int **gene, double *obj, double *g)
         fRestart = fopen("restart.fit","r");
         while(fscanf(fRestart,"%lf",&auxDummy) != EOF)
         {
-          printf("%f \n",auxDummy);
           restartIndex++;
         }
         fclose(fRestart);
