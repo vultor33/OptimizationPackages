@@ -46,3 +46,15 @@ y - valor da funcao resposta
 no final ele cria o restart.fit e escreve nesse
 cada ponto no formato que se deseja.
 
+
+util
+
+GetBestPoint.cpp
+
+pega o melhor ponto do arquivo nondominated_out.pop
+
+
+
+
+
+
