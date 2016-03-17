@@ -47,7 +47,7 @@
 
         IFAIL = 0 !ERROR
         MAXIT = 50000 !MAX ITERATIONS
-        EPS = X02AJF()
+        EPS = 2.0D0**(-56)
 
         CALL FUNCT(N,X,FXDUMMY)
 
