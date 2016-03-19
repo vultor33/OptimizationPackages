@@ -1,9 +1,12 @@
         PROGRAM SIMPLEXNAG
         INTEGER           N, N1, I
+        INTEGER           KALLFIT, KACTUAL
         DOUBLE PRECISION, ALLOCATABLE :: X(:)
         DOUBLE PRECISION  FMIN
+        DOUBLE PRECISION  ALLFITNESS(10000000), DUMMY
         LOGICAL           RESTART_EXIST
-        
+        COMMON            ALLFITNESS, KALLFIT, KACTUAL     
+ 
         ! Read input
         OPEN (UNIT=13, STATUS='OLD', FILE='initialPoint.txt')
         READ(13,*) N
@@ -14,18 +17,37 @@
         CLOSE(13)
         ! Beware, check user defined funct.for
         
-        ! Create all point output
+        ! Create all point output or read it
+	KALLFIT = 1
+	KACTUAL = 1
         INQUIRE(FILE='restart.simp',EXIST=RESTART_EXIST)
         IF(RESTART_EXIST) THEN
-              OPEN(38, FILE='restart.simp',form='unformatted')
-              CLOSE(38, status='delete')
+	        OPEN(UNIT=14, STATUS='OLD', FILE='restart.simp')
+	        READ(14,*,IOSTAT=IOS) ALLFITNESS(K)
+	        DO WHILE (IOS .EQ. 0)
+	           DO I=1,N
+	               READ(14,*,IOSTAT=IOS) DUMMY
+	           ENDDO
+	           KALLFIT = KALLFIT + 1
+	           READ(14,*,IOSTAT=IOS) ALLFITNESS(KALLFIT)
+	        ENDDO
+	        CLOSE(14)
+        ELSE
+                OPEN(UNIT=39,FILE='restart.simp',STATUS='new')
+                CLOSE(39)
         ENDIF
-        OPEN(UNIT=39,FILE='restart.simp',STATUS='new')
-        CLOSE(39)
         ! Created
 
         N1 = N+1
         CALL GONAG(N,N1,X,FMIN)
+
+       ! WRITE BESTPOINT
+        OPEN(UNIT=40,FILE='bestpoint.txt')
+        WRITE(40,*) FX
+        DO i=1,N
+           WRITE(40,*) X(i)
+        ENDDO
+        CLOSE(40)
 
         STOP
         END

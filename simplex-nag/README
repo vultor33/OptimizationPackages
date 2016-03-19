@@ -16,6 +16,8 @@ executa:  ./getFitness.x
 le em: fitness.txt
 
 
+- AVISO - RECOMECA AUTOMATICAMENTE DO ARQUIVO: 'restart.simp'
+- e necessario apaga-lo se outra condicao inicial for usada.
 
 restart.simp  -> todos os fitness e pontos correspondentes
 [
@@ -31,8 +33,10 @@ x3
 ...
 ]
 
+- no fim ele entregar bestpoint.txt com o melhor ponto
 
-para pegar o melhor tem que compilar e executar o 'get-best-point.for'
+- com o executavel: 'get-best-point.for' -- pode-se conseguir o melhor ponto enquanto esta rodando.
+
 
 
 

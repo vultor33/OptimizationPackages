@@ -1,7 +1,15 @@
        SUBROUTINE FUNCT(N,X,FX)
-       INTEGER N
+       INTEGER N, KALLFIT, KACTUALFIT
        DOUBLE PRECISION X(N), FX
+       DOUBLE PRECISION ALLFITNESS(10000000)
        LOGICAL file_exists
+       COMMON  ALLFITNESS, KALLFIT, KACTUALFIT
+
+        KACTUAL = KACTUAL + 1
+        if(KACTUAL .lt. KALLFIT) then
+                FX = ALLFITNESS(KACTUAL)
+                RETURN
+        endif
 
 
         call system("rm point.txt")
